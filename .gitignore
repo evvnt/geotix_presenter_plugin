@@ -10,5 +10,5 @@
 
 # rspec failure tracking
 .rspec_status
-/views/geotix/node_modules/
-/views/geotix/npm-debug.log
+/views/theme/node_modules/
+/views/theme/npm-debug.log
