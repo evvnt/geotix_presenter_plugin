@@ -1,7 +1,20 @@
 <style>
   <%= raw File.read(File.expand_path('../../../public/bundle.css', __dir__)  ) %>
 
-    <%=  %>
+<% #See https://material.io/develop/web/theming/theming-guide for reference %>
+
+<% if theme %>
+:root {
+  --mdc-theme-primary:  <%= theme.primary_color %>;
+  --mdc-theme-secondary: <%= theme.secondary_color %>;
+  --mdc-theme-background: <%= theme.primary_color %>;
+}
+
+#admin-side-nav .mdc-drawer__header {
+    background-image: url(<%= theme.logo_url || "../images/evvnt_logo.svg" %>) !important;
+}
+
+<% end %>
 </style>
 
 

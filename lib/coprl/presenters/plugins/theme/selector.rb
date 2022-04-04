@@ -9,16 +9,13 @@ module Coprl
           include AppHelpers::ThemeHelper
 
           def self.call(*args)
-            new(*args).call
+            new(*args).current_theme
           end
 
           def initialize(context:)
             @context = context
           end
 
-          def call
-            active_theme
-          end
         end
       end
     end
