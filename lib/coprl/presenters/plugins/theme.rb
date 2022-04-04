@@ -1,4 +1,4 @@
-require_relative 'theme/evvnt_theme'
+require_relative 'theme/palette'
 require_relative 'theme/selector'
 
 module Coprl
@@ -7,7 +7,9 @@ module Coprl
       module Theme
         module DSLHelpers
           def rgb_color(color_code)
-            EvvntTheme::COLORS.fetch(color_code) { raise(Errors::ParameterValidation, "Failed to locate color for: #{color_code}") }
+            Palette::COLORS.fetch(color_code) do
+              raise(Errors::ParameterValidation, "Failed to locate color for: #{color_code}")
+            end
           end
         end
 
@@ -23,10 +25,6 @@ module Coprl
             theme = Theme::Selector.call(context: pom.send(:context))
             render.call :erb, 'theme_header', views: view_dir_theme(pom), locals: { theme: theme }
           end
-
-          private
-
-
 
         end
       end

@@ -2,7 +2,7 @@ module Coprl
   module Presenters
     module Plugins
       module Theme
-        module EvvntTheme
+        module Palette
           COLORS = {
             primary10: '#49040E',
             primary9: '#790618',
