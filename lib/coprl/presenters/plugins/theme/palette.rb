@@ -74,6 +74,10 @@ module Coprl
             green2: '#C8E6C9',
             green1: '#E8F5E9'
           }.freeze
+
+          FONTS = {
+            default: 'Roboto'
+          }
         end
       end
     end

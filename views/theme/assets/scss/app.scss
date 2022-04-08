@@ -1,5 +1,5 @@
 @import "mdc-theme";
-
+@import "components/typography";
 @import "components/avatar";
 @import "components/badge";
 @import "components/button";
@@ -9,7 +9,6 @@
 @import "components/grid";
 @import "components/list";
 @import "components/stepper";
-
 @import "@material/card/mdc-card";
 @import "@material/checkbox/mdc-checkbox";
 @import "@material/dialog/mdc-dialog";
