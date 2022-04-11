@@ -23,9 +23,16 @@ module Coprl
           # The pom is passed along with the sinatra render method.
           def render_header_theme(pom, render:)
             theme = Theme::Selector.call(context: pom.send(:context))
-            render.call :erb, 'theme_header', views: view_dir_theme(pom), locals: { theme: theme }
+            render.call :erb, 'theme_header', views: view_dir_theme(pom),
+                        locals: { theme: theme, custom_font_family: custom_font_family(theme) }
           end
 
+          def custom_font_family(theme)
+            return unless theme&.font_family&.present?
+            return unless theme.font_family != Palette::FONTS[:default]
+
+            theme.font_family
+          end
         end
       end
     end

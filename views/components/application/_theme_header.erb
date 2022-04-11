@@ -1,20 +1,30 @@
+<% if custom_font_family %>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=<%= custom_font_family.gsub(' ', '+') %>">
+<% end %>
+
 <style>
   <%= raw File.read(File.expand_path('../../../public/bundle.css', __dir__)  ) %>
+  <% #See https://material.io/develop/web/theming/theming-guide for reference %>
 
-<% #See https://material.io/develop/web/theming/theming-guide for reference %>
+  #admin-side-nav .mdc-drawer__header {
+    background-image: url("<%= theme&.logo_url&.presence || "../images/evvnt_logo.svg" %>") !important;
+    background-size: contain;
+  }
 
-<% if theme %>
-:root {
-  --mdc-theme-primary:  <%= theme.primary_color %>;
-  --mdc-theme-secondary: <%= theme.secondary_color %>;
-  --mdc-theme-background: <%= theme.primary_color %>;
-}
+  <% if theme %>
+  :root {
+    --mdc-theme-primary:  <%= theme.primary_color %>;
+    --mdc-theme-secondary: <%= theme.secondary_color %>;
+    --mdc-theme-background: <%= theme.primary_color %>;
+    <% if custom_font_family %>
+    --mdc-typography-font-family: <%= custom_font_family %>;
+    <% end %>
+  }
 
-#admin-side-nav .mdc-drawer__header {
-    background-image: url(<%= theme.logo_url || "../images/evvnt_logo.svg" %>) !important;
-}
-
-<% end %>
+  .mdc-drawer .mdc-list-item--activated , .mdc-drawer .mdc-list-item--activated .mdc-list-item__graphic {
+    color: var(--mdc-theme-primary) !important;
+  }
+  <% end %>
 </style>
 
 
