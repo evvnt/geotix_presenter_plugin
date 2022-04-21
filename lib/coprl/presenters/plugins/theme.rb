@@ -1,4 +1,5 @@
 require_relative 'theme/palette'
+require_relative 'theme/default_palette'
 require_relative 'theme/selector'
 
 module Coprl
@@ -6,8 +7,10 @@ module Coprl
     module Plugins
       module Theme
         module DSLHelpers
-          def rgb_color(color_code)
-            Palette::COLORS.fetch(color_code) do
+          def palette_color(color_code, theme = nil)
+            return Palette.palette_color(color_code, theme) if theme
+
+            DefaultPalette::COLORS.fetch(color_code) do
               raise(Errors::ParameterValidation, "Failed to locate color for: #{color_code}")
             end
           end
@@ -23,13 +26,14 @@ module Coprl
           # The pom is passed along with the sinatra render method.
           def render_header_theme(pom, render:)
             theme = Theme::Selector.call(context: pom.send(:context))
+            #TODO: Check what is available here
             render.call :erb, 'theme_header', views: view_dir_theme(pom),
                         locals: { theme: theme, custom_font_family: custom_font_family(theme) }
           end
 
           def custom_font_family(theme)
             return unless theme&.font_family&.present?
-            return unless theme.font_family != Palette::FONTS[:default]
+            return unless theme.font_family != DefaultPalette::FONTS[:default]
 
             theme.font_family
           end

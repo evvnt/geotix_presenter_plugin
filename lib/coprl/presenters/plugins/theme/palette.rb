@@ -1,83 +1,90 @@
+require_relative 'default_palette'
+
 module Coprl
   module Presenters
     module Plugins
       module Theme
-        module Palette
-          COLORS = {
-            primary10: '#49040E',
-            primary9: '#790618',
-            primary8: '#AA0921',
-            primary7: '#CA0826',
-            primary6: '#DC1F3C',
-            primary5: '#F53855',
-            primary4: '#F6556E',
-            primary3: '#F98697',
-            primary2: '#FBB6C1',
-            primary1: '#FEE7EA',
+        class Palette
+          attr_reader :primary_color, :secondary_color
 
-            neutral10: '#090E11',
-            neutral9: '#1B2932',
-            neutral8: '#253944',
-            neutral7: '#324D5C',
-            neutral6: '#517C95',
-            neutral5: '#6A96AE',
-            neutral4: '#8BADC0',
-            neutral3: '#ACC5D2',
-            neutral2: '#CDDCE4',
-            neutral1: '#EBF0F3',
+          def self.palette_color(color_code, theme)
+            new(theme).palette(color_code)
+          end
 
-            accent14: '#00B587',
-            accent13: '#00E676',
-            accent12: '#69F0AE',
-            accent11: '#B9F6CA',
-            accent10: '#006064',
-            accent9: '#00838F',
-            accent8: '#0097A7',
-            accent7: '#00ACC1',
-            accent6: '#00BCD4',
-            accent5: '#26C6DA',
-            accent4: '#4DD0E1',
-            accent3: '#80DEEA',
-            accent2: '#9EF9E8',
-            accent1: '#E0F7FA',
+          def initialize(theme)
+            validate_theme(theme)
+            @primary_color = theme.primary_color
+            @secondary_color = theme.secondary_color
+          end
 
-            red10: '#B71C1C',
-            red9: '#C62828',
-            red8: '#D32F2F',
-            red7: '#E53935',
-            red6: '#F44336',
-            red5: '#E55350',
-            red4: '#E57373',
-            red3: '#EF9A9A',
-            red2: '#FFCDD2',
-            red1: '#FFEBEE',
+          def palette(color_code)
+            color_hash[color_code] || DefaultPalette::COLORS[color_code]
+          end
 
-            yellow10: '#F57F17',
-            yellow9: '#F9A825',
-            yellow8: '#FBC02D',
-            yellow7: '#FDD835',
-            yellow6: '#FFEB3B',
-            yellow5: '#FFEE58',
-            yellow4: '#FFF176',
-            yellow3: '#FFF59D',
-            yellow2: '#FFF9C4',
-            yellow1: '#FFFDE7',
+          private
 
-            green10: '#1B5E20',
-            green9: '#2E7D32',
-            green8: '#388E3C',
-            green7: '#43A047',
-            green6: '#4CAF50',
-            green5: '#66BB6A',
-            green4: '#81C784',
-            green3: '#A5D6A7',
-            green2: '#C8E6C9',
-            green1: '#E8F5E9'
-          }.freeze
+          def validate_theme(theme)
+            if theme.try(:primary_color).blank?
+              raise Errors::ParameterValidation, "The primary color was not defined in the theme"
+            end
 
-          FONTS = {
-            default: 'Roboto'
-          }
+            if theme.try(:secondary_color).blank?
+              raise Errors::ParameterValidation, "The secondary color was not defined in the theme"
+            end
+          end
+
+          def color_hash
+            @color_hash ||= generate_color_hash
+          end
+
+          def generate_color_hash
+            {
+              primary10: darken_color(primary_color, 0.4),
+              primary9: darken_color(primary_color, 0.5),
+              primary8: darken_color(primary_color, 0.6),
+              primary7: darken_color(primary_color, 0.7),
+              primary6: primary_color,
+              primary5: lighten_color(primary_color, 0.2),
+              primary4: lighten_color(primary_color, 0.4),
+              primary3: lighten_color(primary_color, 0.5),
+              primary2: lighten_color(primary_color, 0.6),
+              primary1: lighten_color(primary_color, 0.7),
+
+              secondary14: darken_color(secondary_color, 0.2),
+              secondary13: darken_color(secondary_color, 0.3),
+              secondary12: darken_color(secondary_color, 0.4),
+              secondary11: darken_color(secondary_color, 0.5),
+              secondary10: darken_color(secondary_color, 0.6),
+              secondary9: darken_color(secondary_color, 0.7),
+              secondary8: darken_color(secondary_color, 0.8),
+              secondary7: darken_color(secondary_color, 0.9),
+              secondary6: secondary_color,
+              secondary5: lighten_color(secondary_color, 0.2),
+              secondary4: lighten_color(secondary_color, 0.4),
+              secondary3: lighten_color(secondary_color, 0.5),
+              secondary2: lighten_color(secondary_color, 0.6),
+              secondary1: lighten_color(secondary_color, 0.7)
+            }
+          end
+
+          def darken_color(hex_color, amount)
+            hex_color = hex_color.gsub('#','')
+            rgb = hex_color.scan(/../).map {|color| color.hex}
+            rgb[0] = (rgb[0].to_i * amount).round
+            rgb[1] = (rgb[1].to_i * amount).round
+            rgb[2] = (rgb[2].to_i * amount).round
+            "#%02x%02x%02x" % rgb
+          end
+
+          # Amount should be a decimal between 0 and 1. Higher means lighter
+          def lighten_color(hex_color, amount)
+            hex_color = hex_color.gsub('#','')
+            rgb = hex_color.scan(/../).map {|color| color.hex}
+            rgb[0] = [(rgb[0].to_i + 255 * amount).round, 255].min
+            rgb[1] = [(rgb[1].to_i + 255 * amount).round, 255].min
+            rgb[2] = [(rgb[2].to_i + 255 * amount).round, 255].min
+            "#%02x%02x%02x" % rgb
+          end
         end
       end
     end
