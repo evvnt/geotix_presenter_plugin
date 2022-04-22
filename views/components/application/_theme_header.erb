@@ -1,5 +1,5 @@
-<% if custom_font_family %>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=<%= custom_font_family.gsub(' ', '+') %>">
+<% if theme[:font_family] %>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=<%= theme[:font_family].gsub(' ', '+') %>">
 <% end %>
 
 <style>
@@ -7,17 +7,17 @@
   <% #See https://material.io/develop/web/theming/theming-guide for reference %>
 
   #admin-side-nav .mdc-drawer__header {
-    background-image: url("<%= theme&.logo_url&.presence || "../images/evvnt_logo.svg" %>") !important;
+    background-image: url("<%= theme[:logo_url].presence || "../images/evvnt_logo.svg" %>") !important;
     background-size: contain;
   }
 
   <% if theme %>
   :root {
-    --mdc-theme-primary:  <%= theme.primary_color %>;
-    --mdc-theme-secondary: <%= theme.secondary_color %>;
-    --mdc-theme-background: <%= theme.primary_color %>;
-    <% if custom_font_family %>
-    --mdc-typography-font-family: <%= custom_font_family %>;
+    --mdc-theme-primary:  <%= theme[:primary_color] %>;
+    --mdc-theme-secondary: <%= theme[:secondary_color] %>;
+    --mdc-theme-background: <%= theme[:primary_color] %>;
+    <% if theme[:font_family] %>
+    --mdc-typography-font-family: <%= theme[:font_family] %>;
     <% end %>
   }
 
@@ -26,7 +26,9 @@
   }
   <% end %>
 
-  <%= raw theme&.css_overrides %>
+  <% if theme[:css_overrides].present? %>
+    <%= raw theme[:css_overrides] %>
+  <% end %>
 </style>
 
 

@@ -1,6 +1,5 @@
 require_relative 'theme/palette'
 require_relative 'theme/default_palette'
-require_relative 'theme/selector'
 
 module Coprl
   module Presenters
@@ -25,17 +24,7 @@ module Coprl
           # It will be called once for the page.
           # The pom is passed along with the sinatra render method.
           def render_header_theme(pom, render:)
-            theme = Theme::Selector.call(context: pom.send(:context))
-            #TODO: Check what is available here
-            render.call :erb, 'theme_header', views: view_dir_theme(pom),
-                        locals: { theme: theme, custom_font_family: custom_font_family(theme) }
-          end
-
-          def custom_font_family(theme)
-            return unless theme&.font_family&.present?
-            return unless theme.font_family != DefaultPalette::FONTS[:default]
-
-            theme.font_family
+            render.call :erb, 'theme_header', views: view_dir_theme(pom), locals: { theme: pom.context[:theme] || {} }
           end
         end
       end
