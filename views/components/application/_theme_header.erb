@@ -1,4 +1,4 @@
-<% if theme[:font_family] %>
+<% if theme[:font_family].present? %>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=<%= theme[:font_family].gsub(' ', '+') %>">
 <% end %>
 
@@ -11,7 +11,7 @@
     background-size: contain;
   }
 
-  <% if theme %>
+  <% if theme.present? %>
   :root {
     --mdc-theme-primary:  <%= theme[:primary_color] %>;
     --mdc-theme-secondary: <%= theme[:secondary_color] %>;
