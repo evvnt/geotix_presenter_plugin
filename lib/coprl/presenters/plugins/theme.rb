@@ -7,7 +7,7 @@ module Coprl
       module Theme
         module DSLHelpers
           def palette_color(color_code, theme = nil)
-            return Palette.palette_color(color_code, theme) if theme
+            return Palette.themed_palette_color(color_code, theme) if theme
 
             DefaultPalette::COLORS.fetch(color_code) do
               raise(Errors::ParameterValidation, "Failed to locate color for: #{color_code}")
@@ -24,8 +24,21 @@ module Coprl
           # It will be called once for the page.
           # The pom is passed along with the sinatra render method.
           def render_header_theme(pom, render:)
+            theme = prepare_theme(pom.context)
             render.call :erb, 'theme_header', views: view_dir_theme(pom),
-                        locals: { theme: pom.context[:current_theme].try(:call) || {} }
+                        locals: { theme: theme, palette: prepare_palette(theme) }
+          end
+
+          def prepare_theme(context)
+            context[:current_theme].try(:call) || {}
+          end
+
+          def prepare_palette(theme)
+            if theme
+              Palette.new(theme[:primary_color], theme[:secondary_color])
+            else
+              DefaultPalette::COLORS
+            end
           end
         end
       end

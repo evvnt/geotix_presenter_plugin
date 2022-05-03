@@ -2,7 +2,8 @@ module Coprl
   module Presenters
     module Plugins
       module Theme
-        module DefaultPalette
+        class DefaultPalette
+
           COLORS = {
             primary10: '#49040E',
             primary9: '#790618',
@@ -80,6 +81,10 @@ module Coprl
           FONTS = {
             default: 'Roboto'
           }
+
+          def self.[](key)
+            COLORS[key]
+          end
         end
       end
     end

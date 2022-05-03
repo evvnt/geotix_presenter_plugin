@@ -7,29 +7,33 @@ module Coprl
         class Palette
           attr_reader :primary_color, :secondary_color
 
-          def self.palette_color(color_code, theme)
-            new(theme).palette(color_code)
+          def self.themed_palette_color(color_code, theme)
+            new(theme.try(:primary_color), theme.try(:secondary_color)).palette(color_code)
           end
 
-          def initialize(theme)
-            validate_theme(theme)
-            @primary_color = theme.primary_color
-            @secondary_color = theme.secondary_color
+          def initialize(primary_color, secondary_color)
+            @primary_color = primary_color
+            @secondary_color = secondary_color
+            validate_colors
           end
 
           def palette(color_code)
             color_hash[color_code] || DefaultPalette::COLORS[color_code]
           end
 
+          def [](key)
+            palette(key)
+          end
+
           private
 
-          def validate_theme(theme)
-            if theme.try(:primary_color).blank?
-              raise Errors::ParameterValidation, "The primary color was not defined in the theme"
+          def validate_colors
+            if primary_color.blank?
+              raise Errors::ParameterValidation, "The primary color was not defined"
             end
 
-            if theme.try(:secondary_color).blank?
-              raise Errors::ParameterValidation, "The secondary color was not defined in the theme"
+            if secondary_color.blank?
+              raise Errors::ParameterValidation, "The secondary color was not defined"
             end
           end
 
