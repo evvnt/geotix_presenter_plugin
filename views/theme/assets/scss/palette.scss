@@ -77,7 +77,7 @@ $palette-colors: (
 
 @each $name, $color in $palette-colors {
   .v-color__#{$name} {
-    color: $color !important;
+    color: var(--mdc-theme-#{$name}, $color) !important;
   }
 
   .v-background-color__#{$name} {
