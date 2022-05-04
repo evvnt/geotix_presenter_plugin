@@ -22,6 +22,12 @@
     <% if theme[:font_family] %>
     --mdc-typography-font-family: <%= theme[:font_family] %>;
     <% end %>
+
+    <% if palette.present? %>
+      <% Coprl::Presenters::Plugins::Theme::DefaultPalette::COLORS.keys.each do |key| %>
+        --mdc-theme-<%= key %>: <%= palette[key] %>;
+       <% end %>
+    <% end %>
   }
 
   .mdc-drawer .mdc-list-item--activated , .mdc-drawer .mdc-list-item--activated .mdc-list-item__graphic {
@@ -35,7 +41,8 @@
 </style>
 
 <style>
-  <% # This override should not longer be necessary once we upgrade the materialize theme to v8.0+ %>
+  <% # These overrides should not longer be necessary once we upgrade the materialize theme to v8.0+ %>
+
   .mdc-chip{
     color: var(--mdc-theme-chip-color);
     background-color: var(--mdc-theme-chip-ink-color);
@@ -48,6 +55,34 @@
   .mdc-chip-set--choice .mdc-chip, .mdc-chip-set--choice .mdc-chip--selected, .mdc-chip-set--filter .mdc-chip--selected  {
       color: var(--mdc-theme-chip-color);
       background-color: var(--mdc-theme-chip-ink-color);
+  }
+
+  .mdc-chip-set--choice .mdc-chip.mdc-chip--selected .mdc-chip__icon--leading{
+      color: var(--mdc-theme-primary, rgba(220,31,60,.54)) !important;
+  }
+
+  .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+      color: var(--mdc-theme-primary, rgba(220,31,60,.54));
+  }
+
+  .mdc-select--focused .mdc-floating-label {
+      color: var(--mdc-theme-primary, rgba(220,31,60,.54)) !important;
+  }
+
+  .mdc-select--focused .mdc-select__dropdown-icon {
+    color: var(--mdc-theme-primary, rgba(220,31,60,.54)) !important;
+  }
+
+  .mdl-step__label-indicator {
+    background-color: var(--mdc-theme-secondary, rgba(0, 0, 0, 0.3));
+  }
+
+  .mdl-step.is-active .mdl-step__label-indicator, .mdl-step--completed .mdl-step__label-indicator {
+    background-color: var(--mdc-theme-primary, rgba(220,31,60,.54));
+  }
+
+  .v-step--horizontal>.v-step__actions [data-stepper-next] {
+    background-color: var(--mdc-theme-primary, rgba(220,31,60,.54));
   }
 </style>
 

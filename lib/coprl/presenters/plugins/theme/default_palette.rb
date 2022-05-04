@@ -37,7 +37,7 @@ module Coprl
             secondary8: '#0097A7',
             secondary7: '#00ACC1',
             secondary6: '#00BCD4',
-            secondary: '#00BCD4',
+            secondary: '#00ACC1',
             secondary5: '#26C6DA',
             secondary4: '#4DD0E1',
             secondary3: '#80DEEA',
