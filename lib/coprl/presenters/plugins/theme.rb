@@ -7,11 +7,9 @@ module Coprl
       module Theme
         module DSLHelpers
           def palette_color(color_code, theme = nil)
-            return Palette.themed_palette_color(color_code, theme) if theme
-
-            DefaultPalette::COLORS.fetch(color_code) do
-              raise(Errors::ParameterValidation, "Failed to locate color for: #{color_code}")
-            end
+            Palette.new(
+              primary_color: theme.try(:primary_color), secondary_color: theme.try(:secondary_color)
+            ).palette(color_code)
           end
         end
 
@@ -34,11 +32,10 @@ module Coprl
           end
 
           def prepare_palette(theme)
-            if theme
-              Palette.new(theme[:primary_color], theme[:secondary_color])
-            else
-              DefaultPalette::COLORS
-            end
+            Palette.new(
+              primary_color: theme[:primary_color],
+              secondary_color: theme[:secondary_color]
+            )
           end
         end
       end

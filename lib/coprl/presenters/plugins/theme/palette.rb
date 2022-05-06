@@ -7,41 +7,44 @@ module Coprl
         class Palette
           attr_reader :primary_color, :secondary_color
 
-          def self.themed_palette_color(color_code, theme)
-            new(theme.try(:primary_color), theme.try(:secondary_color)).palette(color_code)
-          end
-
-          def initialize(primary_color, secondary_color)
+          def initialize(primary_color:, secondary_color:)
             @primary_color = primary_color
             @secondary_color = secondary_color
-            validate_colors
           end
 
           def palette(color_code)
-            color_hash[color_code] || DefaultPalette::COLORS[color_code]
+            locate_color(color_code)
           end
 
           def [](key)
-            palette(key)
+            locate_color(key)
           end
 
           private
 
-          def validate_colors
-            if primary_color.blank?
-              raise Errors::ParameterValidation, "The primary color was not defined"
+          def locate_color(color_code)
+            if primary_color.present? && color_code.to_s.starts_with?('primary')
+              return primary_color_hash[color_code] || DefaultPalette::COLORS[color_code]
             end
 
-            if secondary_color.blank?
-              raise Errors::ParameterValidation, "The secondary color was not defined"
+            if secondary_color.present? && color_code.to_s.starts_with?('secondary')
+              return secondary_color_hash[color_code] || DefaultPalette::COLORS[color_code]
             end
+
+            return DefaultPalette::COLORS[color_code] if DefaultPalette::COLORS[color_code].present?
+
+            raise(Errors::ParameterValidation, "Failed to locate color for: #{color_code}")
           end
 
-          def color_hash
-            @color_hash ||= generate_color_hash
+          def primary_color_hash
+            @primary_color_hash ||= primary_color.present? ? generate_primary_color_hash : {}
           end
 
-          def generate_color_hash
+          def secondary_color_hash
+            @secondary_color_hash ||= secondary_color.present? ? generate_secondary_color_hash : {}
+          end
+
+          def generate_primary_color_hash
             {
               primary10: darken_color(primary_color, 0.4),
               primary9: darken_color(primary_color, 0.5),
@@ -54,7 +57,11 @@ module Coprl
               primary3: lighten_color(primary_color, 0.5),
               primary2: lighten_color(primary_color, 0.6),
               primary1: lighten_color(primary_color, 0.7),
+            }
+          end
 
+          def generate_secondary_color_hash
+            {
               secondary14: darken_color(secondary_color, 0.2),
               secondary13: darken_color(secondary_color, 0.3),
               secondary12: darken_color(secondary_color, 0.4),
