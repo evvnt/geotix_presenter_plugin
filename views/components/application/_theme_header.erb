@@ -16,8 +16,8 @@
     --mdc-theme-primary:  <%= theme[:primary_color] %>;
     --mdc-theme-secondary: <%= theme[:secondary_color] %>;
     --mdc-theme-background: <%= theme[:primary_color] %>;
-    --mdc-theme-chip-color: <%= palette[:primary1] %>;
-    --mdc-theme-chip-ink-color: <%= palette[:primary6] %>;
+    --mdc-theme-chip-color: <%= palette[:primary6] %>;
+    --mdc-theme-chip-ink-color: <%= palette[:primary1] %>;
 
     <% if theme[:font_family] %>
     --mdc-typography-font-family: <%= theme[:font_family] %>;
@@ -43,13 +43,8 @@
 <style>
   <% # These overrides should not longer be necessary once we upgrade the materialize theme to v8.0+ %>
 
-  .mdc-chip{
-    color: var(--mdc-theme-chip-color);
-    background-color: var(--mdc-theme-chip-ink-color);
-  }
-
   .mdc-chip-set--filter .mdc-chip--selected:hover{
-    color: var(--mdc-theme-text-primary-on-dark, white);
+    color: var(--mdc-theme-chip-color);
   }
 
   .mdc-chip-set--choice .mdc-chip, .mdc-chip-set--choice .mdc-chip--selected, .mdc-chip-set--filter .mdc-chip--selected  {

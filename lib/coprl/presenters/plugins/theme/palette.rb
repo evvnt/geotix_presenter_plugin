@@ -56,7 +56,7 @@ module Coprl
               primary4: lighten_color(primary_color, 0.4),
               primary3: lighten_color(primary_color, 0.5),
               primary2: lighten_color(primary_color, 0.6),
-              primary1: lighten_color(primary_color, 0.7),
+              primary1: lighten_color(primary_color, 0.8)
             }
           end
 
