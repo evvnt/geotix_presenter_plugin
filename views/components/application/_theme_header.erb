@@ -1,5 +1,84 @@
+<% if theme[:font_family].present? %>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=<%= theme[:font_family].gsub(' ', '+') %>">
+<% end %>
+
 <style>
   <%= raw File.read(File.expand_path('../../../public/bundle.css', __dir__)  ) %>
+  <% #See https://material.io/develop/web/theming/theming-guide for reference %>
+
+  #admin-side-nav .mdc-drawer__header {
+    background-image: url("<%= theme[:logo_url].presence || "../images/evvnt_logo.svg" %>") !important;
+    background-size: contain;
+  }
+
+  <% if theme.present? %>
+  :root {
+    --mdc-theme-primary:  <%= theme[:primary_color] %>;
+    --mdc-theme-secondary: <%= theme[:secondary_color] %>;
+    --mdc-theme-background: <%= theme[:primary_color] %>;
+    --mdc-theme-chip-color: <%= palette[:primary6] %>;
+    --mdc-theme-chip-ink-color: <%= palette[:primary1] %>;
+
+    <% if theme[:font_family] %>
+    --mdc-typography-font-family: <%= theme[:font_family] %>;
+    <% end %>
+
+    <% if palette.present? %>
+      <% Coprl::Presenters::Plugins::Theme::DefaultPalette::COLORS.keys.each do |key| %>
+        --mdc-theme-<%= key %>: <%= palette[key] %>;
+       <% end %>
+    <% end %>
+  }
+
+  .mdc-drawer .mdc-list-item--activated , .mdc-drawer .mdc-list-item--activated .mdc-list-item__graphic {
+    color: var(--mdc-theme-primary) !important;
+  }
+  <% end %>
+
+  <% if theme[:css_overrides].present? %>
+    <%= raw theme[:css_overrides] %>
+  <% end %>
+</style>
+
+<style>
+  <% # These overrides should not longer be necessary once we upgrade the materialize theme to v8.0+ %>
+
+  .mdc-chip-set--filter .mdc-chip--selected:hover{
+    color: var(--mdc-theme-chip-color);
+  }
+
+  .mdc-chip-set--choice .mdc-chip, .mdc-chip-set--choice .mdc-chip--selected, .mdc-chip-set--filter .mdc-chip--selected  {
+    color: var(--mdc-theme-chip-color);
+    background-color: var(--mdc-theme-chip-ink-color);
+  }
+
+  .mdc-chip-set--choice .mdc-chip.mdc-chip--selected .mdc-chip__icon--leading{
+    color: var(--mdc-theme-primary, rgba(220,31,60,.54)) !important;
+  }
+
+  .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: var(--mdc-theme-primary, rgba(220,31,60,.54));
+  }
+
+  .mdc-select--focused .mdc-floating-label {
+    color: var(--mdc-theme-primary, rgba(220,31,60,.54)) !important;
+  }
+
+  .mdc-select--focused .mdc-select__dropdown-icon{
+    background: url("data:image/svg+xml,%3Csvg%20width%3D%2210px%22%20height%3D%225px%22%20viewBox%3D%227%2010%2010%205%22%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%3E%0A%20%20%20%20%3Cpolygon%20id%3D%22Shape%22%20stroke%3D%22none%22%20fill%3D%22<%= URI.encode_www_form_component(theme[:primary_color]) %>%22%20fill-rule%3D%22evenodd%22%20opacity%3D%220.54%22%20points%3D%227%2010%2012%2015%2017%2010%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E") no-repeat center !important;
+  }
+
+  .mdl-step__label-indicator {
+    background-color: var(--mdc-theme-secondary, rgba(0, 0, 0, 0.3));
+  }
+
+  .mdl-step.is-active .mdl-step__label-indicator, .mdl-step--completed .mdl-step__label-indicator {
+    background-color: var(--mdc-theme-primary, rgba(220,31,60,.54));
+  }
+
+  .v-step--horizontal>.v-step__actions [data-stepper-next] {
+    background-color: var(--mdc-theme-primary, rgba(220,31,60,.54));
+  }
 </style>
 
 

@@ -63,13 +63,13 @@
 
 .v-card-selected {
   outline: none;
-  border: 3px solid palette(accent7);
+  border: 3px solid var(--mdc-theme-secondary7, palette(secondary7));
 }
 
 .v-card-border-left {
-  border-left: 5px solid palette(accent9);
+  border-left: 5px solid var(--mdc-theme-secondary9, palette(secondary9));
 }
 
 .v-card-border-top {
-  border-top: 5px solid palette(accent9);
+  border-top: 5px solid var(--mdc-theme-secondary9, palette(secondary9));
 }

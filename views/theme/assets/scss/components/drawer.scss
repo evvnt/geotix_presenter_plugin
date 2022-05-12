@@ -37,7 +37,7 @@
 
 #admin-side-nav {
   .mdc-drawer__header {
-    min-height: 79px;
+    min-height: 81px;
     background-image: url("../images/evvnt_logo.svg");
     background-repeat: no-repeat;
     background-position: center;
@@ -52,7 +52,6 @@
 .mdc-drawer__content > .mdc-list {
   h6.mdc-list-group__subheader {
     margin-bottom: 8px;
-    color: palette(primary10);
   }
   .mdc-list-item {
     margin: 0px 8px;

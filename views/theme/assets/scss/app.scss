@@ -1,5 +1,5 @@
 @import "mdc-theme";
-
+@import "components/typography";
 @import "components/avatar";
 @import "components/badge";
 @import "components/button";
@@ -9,7 +9,6 @@
 @import "components/grid";
 @import "components/list";
 @import "components/stepper";
-
 @import "@material/card/mdc-card";
 @import "@material/checkbox/mdc-checkbox";
 @import "@material/dialog/mdc-dialog";
@@ -39,25 +38,14 @@
 
 
 .mdc-fab {
-  background-color: palette(primary6);
   color: white;
 }
 
-:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::before,
-:not(.mdc-list--non-interactive) > :not(.mdc-list-item--disabled).mdc-list-item--activated::after {
-  background-color: palette(primary2);
-}
-
 .mdc-top-app-bar {
-  background-color: palette(primary5);
   color: white;
   z-index: 10;
 }
 
 #top-nav-logout-menu {
   z-index: 15;
-}
-
-.v-icon__primary {
-  color: palette(primary5);
 }

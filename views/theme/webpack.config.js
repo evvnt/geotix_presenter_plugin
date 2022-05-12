@@ -1,4 +1,4 @@
-module.exports = [{
+module.exports = {
     mode: 'production',
     entry: './assets/scss/app.scss',
     output: {
@@ -14,12 +14,19 @@ module.exports = [{
                         name: '../../../public/bundle.css',
                     },
                 },
-                {loader: 'extract-loader'},
-                {loader: 'css-loader'},
+                { loader: 'extract-loader'},
+                { loader: 'css-loader',
+                    options:
+                        {
+                          esModule: false
+                        }
+                    },
                 {
                     loader: 'sass-loader',
                     options: {
-                        includePaths: ['./node_modules']
+                        sassOptions: {
+                          includePaths: ['./node_modules']
+                        }
                     }
                 }
             ]
@@ -29,4 +36,4 @@ module.exports = [{
             loader: 'svg-url-loader'
         }]
     },
-}];
+};

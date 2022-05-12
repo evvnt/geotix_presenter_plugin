@@ -11,7 +11,6 @@ $palette-colors: (
   primary2: #FBB6C1,
   primary1: #FEE7EA,
 
-
   neutral10: #090E11,
   neutral9: #1B2932,
   neutral8: #253944,
@@ -23,23 +22,21 @@ $palette-colors: (
   neutral2: #CDDCE4,
   neutral1: #EBF0F3,
 
-
-  accent14: #00B587,
-  accent13: #00E676,
-  accent12: #69F0AE,
-  accent11: #B9F6CA,
-  accent10: #006064,
-  accent9: #00838F,
-  accent8: #0097A7,
-  accent7: #00ACC1,
-  accent6: #00BCD4,
-  accent5: #26C6DA,
-  accent4: #4DD0E1,
-  accent3: #80DEEA,
-  accent2: #9EF9E8,
-  accent1: #E0F7FA,
-
-
+  secondary14: #00B587,
+  secondary13: #00E676,
+  secondary12: #69F0AE,
+  secondary11: #B9F6CA,
+  secondary10: #006064,
+  secondary9: #00838F,
+  secondary8: #0097A7,
+  secondary7: #00ACC1,
+  secondary6: #00BCD4,
+  secondary5: #26C6DA,
+  secondary4: #4DD0E1,
+  secondary3: #80DEEA,
+  secondary2: #9EF9E8,
+  secondary1: #E0F7FA,
+        
   red10: #B71C1C,
   red9: #C62828,
   red8: #D32F2F,
@@ -74,14 +71,13 @@ $palette-colors: (
   green1: #E8F5E9
 );
 
-
 @function palette($color) {
   @return map-get($palette-colors, $color);
 }
 
 @each $name, $color in $palette-colors {
   .v-color__#{$name} {
-    color: $color !important;
+    color: var(--mdc-theme-#{$name}, $color) !important;
   }
 
   .v-background-color__#{$name} {
