@@ -17,6 +17,10 @@ $mdc-caption-font-size:   .75rem;    // 12sp
 $mdc-button-font-size:    .875rem;   // 14sp
 $mdc-overline-font-size:  .75rem;    // 12sp
 
+a {
+  font-weight: normal;
+}
+
 .mdc-typography--headline6 {
   color: palette(neutral9);
 }
