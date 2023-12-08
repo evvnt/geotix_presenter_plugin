@@ -3,7 +3,7 @@
     "start": "webpack"
   },
   "name": "evvnt",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Dynamic Theme for the Evvnt One Platform",
   "author": "Evvnt",
   "type": "commonjs",
@@ -11,6 +11,7 @@
   "dependencies": {
     "@material/animation": "^3.1.0",
     "@material/base": "^3.1.0",
+    "@material/button": "^3.1.0",
     "@material/card": "^3.1.0",
     "@material/chips": "^3.1.0",
     "@material/dialog": "^3.1.0",
@@ -43,16 +44,13 @@
     "mdl-stepper": "^1.1.6"
   },
   "devDependencies": {
-    "@material/button": "^3.1.0",
-    "css-loader": "^6.7.1",
-    "extract-loader": "^3.1.0",
+    "css-loader": "^6.8.1",
+    "extract-loader": "^4.0.3",
     "file-loader": "^6.2.0",
-    "lodash": "^4.17.21",
-    "sass": "^1.49.11",
-    "sass-loader": "^12.6.0",
-    "svg-url-loader": "^7.1.1",
-    "webpack": "^5.71.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4"
+    "sass": "^1.64.0",
+    "sass-loader": "^13.3.2",
+    "svg-url-loader": "^8.0.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   }
 }
