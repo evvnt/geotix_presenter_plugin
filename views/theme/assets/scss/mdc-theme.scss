@@ -1,6 +1,20 @@
 @import "palette";
 // --------------------- MDC THEME ---------------------*/
 
+$mdc-headline1-font-size: 6rem;      // 96px
+$mdc-headline2-font-size: 3.75rem;   // 60px
+$mdc-headline3-font-size: 3rem;      // 48px
+$mdc-headline4-font-size: 2.125rem;  // 34px
+$mdc-headline5-font-size: 1.5rem;    // 24px
+$mdc-headline6-font-size: 1.25rem;   // 20px
+$mdc-subtitle1-font-size: 1rem;      // 16px
+$mdc-subtitle2-font-size: 1rem;      // 16px
+$mdc-body1-font-size:     1rem;      // 16px
+$mdc-body2-font-size:     .875rem;   // 14px
+$mdc-caption-font-size:   .75rem;    // 12px
+$mdc-button-font-size:    .875rem;   // 14px
+$mdc-overline-font-size:  .75rem;    // 12px
+
 // See https://github.com/material-components/material-components-web/tree/master/packages for reference
 
 $mdc-theme-primary: palette(primary6);
