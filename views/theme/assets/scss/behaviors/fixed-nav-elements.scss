@@ -4,7 +4,7 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 10; // Above FABs, below dialog scrim.
+  z-index: 9; // Above FABs, below dialog scrim.
 }
 
 .v-root.v-root--header-present #subheader {
